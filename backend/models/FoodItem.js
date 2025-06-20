@@ -1,27 +1,33 @@
-// models/FoodItem.js
 const mongoose = require('mongoose');
 
 const foodItemSchema = new mongoose.Schema({
-  _id: Number,
-  foodItem: {
+  restaurantName: {
+    type: String,
+    required: true
+  },
+  foodType: {
     type: String,
     required: true
   },
   quantity: {
-    type: String, // e.g., "5 plates", "10 packs"
+    type: String,
     required: true
   },
   location: {
     type: String,
     required: true
   },
+  phone: {
+    type: String,
+    required: true
+  },
+  postedAt: {
+    type: String,
+    default: () => new Date().toLocaleString()
+  },
   pickedUp: {
     type: Boolean,
     default: false
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
   }
 });
 
