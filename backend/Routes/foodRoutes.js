@@ -1,34 +1,44 @@
 const express = require('express');
-const router = express.Router();
 const FoodItem = require('../models/FoodItem');
 
-// Create food item
-router.post('/', async (req, res) => {
+const router = express.Router();
+
+// GET all food donations
+router.get('/', async (req, res) => {
   try {
-    const item = new FoodItem(req.body);
-    const saved = await item.save();
-    res.status(201).json(saved);
+    const items = await FoodItem.find().sort({ postedAt: -1 });
+    res.json(items);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error('Error fetching food items:', err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
-// Get all food items
-router.get('/', async (req, res) => {
-  const items = await FoodItem.find();
-  res.json(items);
-});
+// POST a new food donation
+router.post('/', async (req, res) => {
+  try {
+    const { restaurantName, foodType, quantity, location, phone } = req.body;
 
-// Update pickup status
-router.put('/:id', async (req, res) => {
-  const updated = await FoodItem.findByIdAndUpdate(req.params.id, { pickedUp: req.body.pickedUp }, { new: true });
-  res.json(updated);
-});
+    // Validation
+    if (!restaurantName || !foodType || !quantity || !location || !phone) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
 
-// Delete food item
-router.delete('/:id', async (req, res) => {
-  await FoodItem.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Deleted successfully' });
+    const newFoodItem = new FoodItem({
+      restaurantName,
+      foodType,
+      quantity,
+      location,
+      phone,
+      pickedUp: false
+    });
+
+    const savedItem = await newFoodItem.save();
+    res.status(201).json(savedItem);
+  } catch (err) {
+    console.error('Error saving food item:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
 module.exports = router;
