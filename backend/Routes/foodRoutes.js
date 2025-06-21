@@ -1,12 +1,13 @@
+// backend/routes/foodRoutes.js
+
 const express = require('express');
-const FoodItem = require('../models/FoodItem');
-
 const router = express.Router();
+const FoodItem = require('../models/FoodItem'); // Make sure this path is correct
 
-// GET all food donations
+// GET all food items, sorted by latest
 router.get('/', async (req, res) => {
   try {
-    const items = await FoodItem.find().sort({ postedAt: -1 });
+    const items = await FoodItem.find().sort({ createdAt: -1 });
     res.json(items);
   } catch (err) {
     console.error('Error fetching food items:', err);
@@ -14,16 +15,15 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST a new food donation
+// POST new food donation
 router.post('/', async (req, res) => {
+  const { restaurantName, foodType, quantity, location, phone } = req.body;
+
+  if (!restaurantName || !foodType || !quantity || !location || !phone) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
   try {
-    const { restaurantName, foodType, quantity, location, phone } = req.body;
-
-    // Validation
-    if (!restaurantName || !foodType || !quantity || !location || !phone) {
-      return res.status(400).json({ error: 'All fields are required' });
-    }
-
     const newFoodItem = new FoodItem({
       restaurantName,
       foodType,

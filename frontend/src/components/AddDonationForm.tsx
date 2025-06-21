@@ -54,7 +54,7 @@ export default function AddDonationForm({ onAdd }: { onAdd: (data: any) => void 
     <div className="py-16 px-4 bg-gradient-to-br from-lime-50 via-white to-green-50">
       {/* Intro Section */}
       <div className="text-center mb-12 max-w-2xl mx-auto space-y-4">
-        <h2 className="text-4xl font-extrabold text-green-700">🍛 Donate Surplus Food</h2>
+        <h2 className="text-4xl font-exrabold text-green-700">🍛 Donate Surplus Food</h2>
         <p className="text-gray-600 text-lg">
           Your excess food can fill empty stomachs. Join our movement to eliminate food waste and hunger. It only takes a minute.
         </p>

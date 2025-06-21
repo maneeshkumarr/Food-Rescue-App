@@ -96,6 +96,14 @@ npm run dev
 📷 Screenshots
 📤 Donate Page	📥 Browse Page	📜 History Page
 
+<p align="center">
+  <img src="![alt text](image.png)" alt="Food Rescue App Screenshot" width="200"/>
+   <img src="![alt text](image.png)" alt="Food Rescue App Screenshot" width="200"/>
+    <img src="![alt text](image.png)" alt="Food Rescue App Screenshot" width="200"/>
+</p>
+
+
+
 
 💼 Why This Project Matters
 Showcases full-stack skills (CRUD, REST APIs, state management)
