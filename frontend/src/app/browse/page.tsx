@@ -5,14 +5,15 @@ import DonationCard from '../../components/DonationCard';
 import { Leaf, LoaderCircle } from 'lucide-react';
 
 export default function BrowsePage() {
-  const [donations, setDonations] = useState<any[]>([]);
+  const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get('http://localhost:5000/api/food')
       .then(res => {
-        setDonations(res.data.reverse());
+        // Only show available donations
+        setDonations(res.data.filter(d => !d.pickedUp));
         setLoading(false);
       })
       .catch(err => {
