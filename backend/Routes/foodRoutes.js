@@ -41,4 +41,20 @@ router.post('/', async (req, res) => {
   }
 });
 
+// PATCH: Mark as picked up
+router.patch('/:id/pickup', async (req, res) => {
+  try {
+    const item = await FoodItem.findByIdAndUpdate(
+      req.params.id,
+      { pickedUp: true },
+      { new: true }
+    );
+    if (!item) return res.status(404).json({ error: 'Donation not found' });
+    res.json(item);
+  } catch (err) {
+    console.error('Error updating pickup status:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 module.exports = router;
