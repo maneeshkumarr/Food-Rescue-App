@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import {
   Utensils,
   Package,
@@ -27,20 +27,18 @@ export default function AddDonationForm({ onAdd }: { onAdd: (data: any) => void 
     e.preventDefault();
     setLoading(true);
 
-    // FIX: Include phone in payload sent to backend
     const payload = {
-  restaurantName: form.restaurantName,
-  foodType: form.foodType,
-  quantity: form.quantity,
-  location: form.location,
-  phone: form.phone,
-  pickedUp: false,
-};
-
+      restaurantName: form.restaurantName,
+      foodType: form.foodType,
+      quantity: form.quantity,
+      location: form.location,
+      phone: form.phone,
+      pickedUp: false,
+    };
 
     try {
-      const res = await axios.post('http://localhost:5000/api/food', payload);
-      onAdd(res.data);
+      // REMOVE the axios.post here, just call onAdd
+      await onAdd(payload);
       setForm({ restaurantName: '', foodType: '', quantity: '', location: '', phone: '' });
     } catch (err) {
       console.error('❌ Error submitting donation:', err);
