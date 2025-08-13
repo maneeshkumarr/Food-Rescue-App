@@ -22,15 +22,13 @@ export default function DonatePage() {
       });
   }, []);
 
-  const handleAddDonation = (donation: any) => {
-    axios
-      .post('http://localhost:5000/api/food', donation)
-      .then(res => {
-        setDonations([res.data, ...donations]);
-      })
-      .catch(err => {
-        console.error('Error submitting donation:', err);
-      });
+  const handleAddDonation = async (donation: any) => {
+    try {
+      const res = await axios.post('http://localhost:5000/api/food', donation);
+      setDonations([res.data, ...donations]);
+    } catch (err) {
+      console.error('Error submitting donation:', err);
+    }
   };
 
   return (
