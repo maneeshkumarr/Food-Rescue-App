@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const foodRoutes = require('./routes/foodRoutes');  // this should be your router, not model
+const foodRoutes = require('@/routes/foodRoutes'); 
 
 const app = express();
 const PORT = 5000;
@@ -10,10 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/food_rescue')
-  .catch(err => console.error('❌ MongoDB connection error:', err));
+  .catch(err => console.error(' MongoDB connection error:', err));
 
-mongoose.connection.on('connected', () => console.log('✅ MongoDB connected'));
-mongoose.connection.on('error', err => console.error('❌ MongoDB connection error:', err));
+mongoose.connection.on('connected', () => console.log(' MongoDB connected'));
+mongoose.connection.on('error', err => console.error(' MongoDB connection error:', err));
 
 app.get('/', (req, res) => res.send('Food Rescue API is running.'));
 
@@ -32,5 +32,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(` Server running on http://localhost:${PORT}`);
 });
