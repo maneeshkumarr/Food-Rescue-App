@@ -10,10 +10,19 @@ import {
   Info,
   HelpingHand,
 } from 'lucide-react';
-import { Donation } from '@/types/donation';
+
+// Define the Donation interface directly in the file
+interface Donation {
+  restaurantName: string;
+  foodType: string;
+  quantity: string;
+  location: string;
+  phone: string;
+  pickedUp: boolean;
+}
 
 export default function AddDonationForm({ onAdd }: { onAdd: (data: Donation) => void }) {
-  // form state excludes pickedUp since we set it on submit
+  // Form state excludes pickedUp since we set it on submit
   const [form, setForm] = useState<Omit<Donation, 'pickedUp'>>({
     restaurantName: '',
     foodType: '',
@@ -35,7 +44,7 @@ export default function AddDonationForm({ onAdd }: { onAdd: (data: Donation) => 
 
     try {
       await onAdd(payload);
-      // reset form
+      // Reset form
       setForm({
         restaurantName: '',
         foodType: '',
