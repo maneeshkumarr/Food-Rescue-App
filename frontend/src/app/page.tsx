@@ -206,7 +206,7 @@ export default function HomePage() {
             Be the reason someone eats today.
           </h2>
           <p className="text-lg md:text-xl max-w-xl mx-auto text-green-200">
-            Whether you're a restaurant or a volunteer — join us in building a zero-waste, hunger-free community.
+            Whether you&apos;re a restaurant or a volunteer — join us in building a zero-waste, hunger-free community.
           </p>
           <a
             href="/donate"

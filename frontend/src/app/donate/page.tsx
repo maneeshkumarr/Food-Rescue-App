@@ -5,30 +5,39 @@ import AddDonationForm from '../../components/AddDonationForm';
 import DonationCard from '../../components/DonationCard';
 import { Leaf, LoaderCircle, HandHeart } from 'lucide-react';
 
+// Define the type for a donation
+interface Donation {
+  id: string;
+  title: string;
+  description: string;
+  pickedUp: boolean;
+  donorName?: string;
+}
+
 export default function DonatePage() {
-  const [donations, setDonations] = useState<any[]>([]);
+  const [donations, setDonations] = useState<Donation[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/food')
-      .then(res => {
+      .get<Donation[]>('http://localhost:5000/api/food')
+      .then((res) => {
         setDonations(res.data.reverse());
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error fetching donations:', err);
         setLoading(false);
       });
   }, []);
 
-  const handleAddDonation = (donation: any) => {
+  const handleAddDonation = (donation: Omit<Donation, 'id'>) => {
     axios
-      .post('http://localhost:5000/api/food', donation)
-      .then(res => {
+      .post<Donation>('http://localhost:5000/api/food', donation)
+      .then((res) => {
         setDonations([res.data, ...donations]);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error submitting donation:', err);
       });
   };
@@ -45,7 +54,7 @@ export default function DonatePage() {
           Help Us Feed More. Waste Less.
         </h1>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-          Add available food from your restaurant or home. We’ll make sure it reaches those in need.
+          Add available food from your restaurant or home. We&apos;ll make sure it reaches those in need.
         </p>
       </header>
 
@@ -74,8 +83,8 @@ export default function DonatePage() {
           <p className="text-center text-gray-600">No donations available yet.</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {donations.map((donation, i) => (
-              <DonationCard key={i} data={donation} />
+            {donations.map((donation) => (
+              <DonationCard key={donation.id} data={donation} />
             ))}
           </div>
         )}
@@ -83,8 +92,12 @@ export default function DonatePage() {
 
       {/* Footer Banner */}
       <footer className="bg-green-700 text-white py-10 text-center mt-8">
-        <h3 className="text-xl font-semibold">Together, we can eliminate food waste and feed more people.</h3>
-        <p className="text-green-100 mt-2">Thank you for supporting the cause 💚</p>
+        <h3 className="text-xl font-semibold">
+          Together, we can eliminate food waste and feed more people.
+        </h3>
+        <p className="text-green-100 mt-2">
+          Thank you for supporting the cause 💚
+        </p>
       </footer>
     </div>
   );

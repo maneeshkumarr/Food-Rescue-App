@@ -4,18 +4,27 @@ import axios from 'axios';
 import DonationCard from '../../components/DonationCard';
 import { Clock, LoaderCircle } from 'lucide-react';
 
+// Define the Donation type (reuse across pages)
+interface Donation {
+  id: string;
+  title: string;
+  description: string;
+  pickedUp: boolean;
+  donorName?: string;
+}
+
 export default function HistoryPage() {
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<Donation[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/food')
-      .then(res => {
+      .get<Donation[]>('http://localhost:5000/api/food')
+      .then((res) => {
         setHistory(res.data.reverse());
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error loading history:', err);
         setLoading(false);
       });
@@ -33,7 +42,7 @@ export default function HistoryPage() {
           Your Donation History
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-          Review your past contributions and see how you’ve helped reduce food waste.
+          Review your past contributions and see how you&apos;ve helped reduce food waste.
         </p>
       </header>
 
@@ -48,8 +57,8 @@ export default function HistoryPage() {
           <p className="text-center text-gray-600">No donation history found.</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {history.map((item, index) => (
-              <DonationCard key={index} data={item} />
+            {history.map((item) => (
+              <DonationCard key={item.id} data={item} />
             ))}
           </div>
         )}

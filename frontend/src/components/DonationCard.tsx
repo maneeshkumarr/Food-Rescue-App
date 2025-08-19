@@ -4,11 +4,11 @@ import {
   Calendar,
   PackageCheck,
   CheckCircle,
-  ShieldCheck,
   Soup,
 } from 'lucide-react';
+import { Donation } from '@/types/donation';
 
-export default function DonationCard({ data }: { data: any }) {
+export default function DonationCard({ data }: { data: Donation }) {
   return (
     <div className="bg-white rounded-2xl shadow-md border border-green-100 p-6 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
       {/* Top Section: Restaurant + Status */}
@@ -32,23 +32,33 @@ export default function DonationCard({ data }: { data: any }) {
       <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-700 mt-2">
         <div className="flex items-center gap-2">
           <PackageCheck className="w-4 h-4 text-green-500" />
-          <span><strong>Quantity:</strong> {data.quantity}</span>
+          <span>
+            <strong>Quantity:</strong> {data.quantity}
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <MapPin className="w-4 h-4 text-green-500" />
-          <span><strong>Location:</strong> {data.location}</span>
+          <span>
+            <strong>Location:</strong> {data.location}
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <Phone className="w-4 h-4 text-green-500" />
-          <span><strong>Contact:</strong> {data.phone}</span>
+          <span>
+            <strong>Contact:</strong> {data.phone}
+          </span>
         </div>
-        <div className="flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-green-500" />
-          <span><strong>Posted:</strong> {data.postedAt}</span>
-        </div>
+        {data.postedAt && (
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-green-500" />
+            <span>
+              <strong>Posted:</strong> {data.postedAt}
+            </span>
+          </div>
+        )}
       </div>
 
-      {/* CTA Button (Optional) */}
+      {/* CTA Button */}
       {!data.pickedUp && (
         <div className="mt-6">
           <button

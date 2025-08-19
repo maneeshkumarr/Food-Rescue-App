@@ -4,18 +4,28 @@ import axios from 'axios';
 import DonationCard from '../../components/DonationCard';
 import { Leaf, LoaderCircle } from 'lucide-react';
 
+// Define Donation type
+interface Donation {
+  id: string;
+  title: string;
+  description: string;
+  pickedUp: boolean;
+  donorName?: string;
+}
+
 export default function BrowsePage() {
-  const [donations, setDonations] = useState<any[]>([]);
+  const [donations, setDonations] = useState<Donation[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/food')
-      .then(res => {
-        setDonations(res.data.reverse());
+      .get<Donation[]>('http://localhost:5000/api/food')
+      .then((res) => {
+        // Only show available donations
+        setDonations(res.data.filter((d) => !d.pickedUp));
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error fetching donations:', err);
         setLoading(false);
       });
@@ -30,7 +40,7 @@ export default function BrowsePage() {
           Browse Donations
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-          See What's Available Near You
+          See What&apos;s Available Near You
         </h1>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto">
           Explore fresh surplus meals listed by generous restaurants and individuals.
@@ -52,8 +62,8 @@ export default function BrowsePage() {
           <p className="text-center text-gray-600">No donations available yet.</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {donations.map((donation, i) => (
-              <DonationCard key={i} data={donation} />
+            {donations.map((donation) => (
+              <DonationCard key={donation.id} data={donation} />
             ))}
           </div>
         )}
@@ -61,8 +71,12 @@ export default function BrowsePage() {
 
       {/* Footer Banner */}
       <footer className="bg-green-700 text-white py-10 text-center mt-8">
-        <h3 className="text-xl font-semibold">Let’s reduce waste and serve meals to those in need.</h3>
-        <p className="text-green-100 mt-2">Together, we can create a sustainable future 💚</p>
+        <h3 className="text-xl font-semibold">
+          Let’s reduce waste and serve meals to those in need.
+        </h3>
+        <p className="text-green-100 mt-2">
+          Together, we can create a sustainable future 💚
+        </p>
       </footer>
     </div>
   );

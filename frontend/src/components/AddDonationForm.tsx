@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import axios from 'axios';
 import {
   Utensils,
   Package,
@@ -9,16 +8,18 @@ import {
   Building2,
   Loader2,
   Info,
-  HelpingHand
+  HelpingHand,
 } from 'lucide-react';
+import { Donation } from '@/types/donation';
 
-export default function AddDonationForm({ onAdd }: { onAdd: (data: any) => void }) {
-  const [form, setForm] = useState({
+export default function AddDonationForm({ onAdd }: { onAdd: (data: Donation) => void }) {
+  // form state excludes pickedUp since we set it on submit
+  const [form, setForm] = useState<Omit<Donation, 'pickedUp'>>({
     restaurantName: '',
     foodType: '',
     quantity: '',
     location: '',
-    phone: ''
+    phone: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -27,21 +28,21 @@ export default function AddDonationForm({ onAdd }: { onAdd: (data: any) => void 
     e.preventDefault();
     setLoading(true);
 
-    // FIX: Include phone in payload sent to backend
-    const payload = {
-  restaurantName: form.restaurantName,
-  foodType: form.foodType,
-  quantity: form.quantity,
-  location: form.location,
-  phone: form.phone,
-  pickedUp: false,
-};
-
+    const payload: Donation = {
+      ...form,
+      pickedUp: false,
+    };
 
     try {
-      const res = await axios.post('http://localhost:5000/api/food', payload);
-      onAdd(res.data);
-      setForm({ restaurantName: '', foodType: '', quantity: '', location: '', phone: '' });
+      await onAdd(payload);
+      // reset form
+      setForm({
+        restaurantName: '',
+        foodType: '',
+        quantity: '',
+        location: '',
+        phone: '',
+      });
     } catch (err) {
       console.error('❌ Error submitting donation:', err);
       alert('Failed to submit donation.');
@@ -54,13 +55,17 @@ export default function AddDonationForm({ onAdd }: { onAdd: (data: any) => void 
     <div className="py-16 px-4 bg-gradient-to-br from-lime-50 via-white to-green-50">
       {/* Intro Section */}
       <div className="text-center mb-12 max-w-2xl mx-auto space-y-4">
-        <h2 className="text-4xl font-exrabold text-green-700">🍛 Donate Surplus Food</h2>
+        <h2 className="text-4xl font-extrabold text-green-700">🍛 Donate Surplus Food</h2>
         <p className="text-gray-600 text-lg">
           Your excess food can fill empty stomachs. Join our movement to eliminate food waste and hunger. It only takes a minute.
         </p>
         <div className="flex justify-center gap-4 text-green-600 text-sm">
-          <div className="flex items-center gap-2"><HelpingHand className="w-4 h-4" /> Supports community hunger relief</div>
-          <div className="flex items-center gap-2"><Info className="w-4 h-4" /> Easy and fast process</div>
+          <div className="flex items-center gap-2">
+            <HelpingHand className="w-4 h-4" /> Supports community hunger relief
+          </div>
+          <div className="flex items-center gap-2">
+            <Info className="w-4 h-4" /> Easy and fast process
+          </div>
         </div>
         <hr className="w-24 mx-auto border-green-500" />
       </div>
