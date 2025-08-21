@@ -1,137 +1,41 @@
-# 🍱 Food Rescue App
+# Food Rescue App
 
-A full-stack web application that connects restaurants and individuals with surplus food to people in need. The platform allows donors to list excess food, and volunteers can request pickups to redistribute it.
+## Description
+A **Food Rescue App** built by a team of 2, designed to help restaurants donate leftover food to NGOs efficiently.  
+The app features food listing, pickup status updates, and location tracking to ensure food reaches those in need. The interface is clean, functional, and easy to use.
 
----
+## Tech Stack
+- **Backend:** Node.js, Express  
+- **Database:** MongoDB  
+- **Frontend:** React.js  
+- **Others:** RESTful APIs, Axios, Responsive Design, Map/Location Tracking
 
-## 📌 Project Overview
+## Mockup Images
+Here are some screenshots/mockups of the Food Rescue App:
 
-**Goal**: To reduce food waste and fight hunger by building a seamless, user-friendly interface for food donations and pickups.
+<img src="https://images.pexels.com/photos/5938/food-restaurant-restaurant-table.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Food Listing Page" width="500" />
 
-**Tech Stack**:
-- **Frontend**: Next.js, TypeScript, Tailwind CSS, Axios
-- **Backend**: Node.js, Express.js, MongoDB (Mongoose)
-- **API Design**: RESTful endpoints
-- **Styling**: Lucide Icons, Tailwind gradients, modern UI components
+<img src="https://images.pexels.com/photos/5937/restaurant-restaurant-table-food.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Pickup Status Page" width="500" />
 
----
+<img src="https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Location Tracking Page" width="500" />
 
-## 🌟 Features
+## Features
+- **Food Listing:** Restaurants can list leftover food items for donation.  
+- **Pickup Status:** NGOs and volunteers can update the pickup status in real-time.  
+- **Location Tracking:** Track delivery locations using maps for accurate pickups.  
+- **Clean UI:** Functional and responsive interface for both restaurants and NGOs.  
+- **Secure CRUD Operations:** Create, read, update, and delete food listings securely.  
 
-### 🔼 Donor Side
-- Submit donation details (restaurant name, food type, quantity, location, contact)
-- View past donations in **History**
-- Responsive and mobile-friendly UI
+## Explanation
+The Food Rescue App connects restaurants and NGOs to minimize food wastage.  
 
-### 👀 Volunteer Side
-- Browse available food donations
-- Click "Request Pickup" to mark food as picked up
-- Filter out already picked up donations
+- **Backend:** Node.js and Express handle RESTful APIs, manage requests, and interact with MongoDB to store food listings, users, and status updates.  
+- **Frontend:** React provides a dynamic and responsive user interface, making it easy to view listings, update pickup status, and track locations.  
+- **Real-Time Updates:** Food listings and pickup statuses are updated instantly for both restaurants and NGOs.  
+- **Location Services:** Integrated maps allow accurate delivery and pickup tracking, ensuring timely food donations.  
+- **User Experience:** The app focuses on usability, clean design, and responsiveness to provide a smooth experience on all devices.  
 
----
-
-## 🧠 Folder Structure
-
-Food-Rescue-App/
-├── backend/
-│ ├── models/
-│ │ └── FoodItem.js
-│ ├── routes/
-│ │ └── foodRoutes.js
-│ └── server.js
-├── frontend/
-│ └── app/
-│ ├── browse/
-│ ├── donate/
-│ ├── history/
-│ ├── components/
-│ │ ├── AddDonationForm.tsx
-│ │ └── DonationCard.tsx
-
-
----
-
-## 🔁 API Endpoints
-
-### Base URL: `http://localhost:5000/api/food`
-
-| Method | Endpoint          | Description                      |
-|--------|-------------------|----------------------------------|
-| GET    | `/`               | Fetch all donations              |
-| POST   | `/`               | Create a new food donation       |
-| PATCH  | `/:id/pickup`     | Mark a donation as picked up     |
-
-> Uses Mongoose validation and error handling
-
----
-
-## 🛠️ How to Run Locally
-
-### 📦 Backend
-
+## Getting Started
+1. **Clone the repository:**
 ```bash
-cd backend
-npm install
-node server.js
-
-
-## Frontend
-
-cd frontend
-npm install
-npm run dev
-
-
-🧪 Testing Data
-
-{
-  "restaurantName": "Green Bites",
-  "foodType": "Vegetarian Rice",
-  "quantity": "20 meals",
-  "location": "MG Road, Bangalore",
-  "phone": "9876543210"
-}
-
-
-📷 Screenshots
-📤 Donate Page	📥 Browse Page	📜 History Page
-
-<p align="center">
-  <img src="![alt text](image.png)" alt="Food Rescue App Screenshot" width="200"/>
-   <img src="![alt text](image.png)" alt="Food Rescue App Screenshot" width="200"/>
-    <img src="![alt text](image.png)" alt="Food Rescue App Screenshot" width="200"/>
-</p>
-
-
-
-
-💼 Why This Project Matters
-Showcases full-stack skills (CRUD, REST APIs, state management)
-
-Addresses real-world problem (food waste)
-
-Clean, production-level code with professional UI/UX
-
-Prepared to extend with authentication, maps, notifications, etc.
-
-✨ Future Enhancements
-User login system (Admin/Volunteer)
-
-Pickup location map integration (Google Maps)
-
-Notifications to NGOs
-
-Food expiry handling
-
-👨‍💻 Developer
-Maneesh Kumar
-MCA | Full-Stack Developer | Passionate about impactful software
-LinkedIn | GitHub
-
-
-📄 License
-This is a student project for learning purposes. Not intended for production or open-source reuse.
-
-
-
-
+git clone https://github.com/your-username/food-rescue-app.git
